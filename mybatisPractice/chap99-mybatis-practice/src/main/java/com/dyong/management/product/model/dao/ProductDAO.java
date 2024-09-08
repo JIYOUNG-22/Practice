@@ -1,5 +1,6 @@
 package com.dyong.management.product.model.dao;
 
+import com.dyong.common.SearchCondition;
 import com.dyong.management.product.model.dto.ProductDTO;
 
 import java.util.List;
@@ -9,6 +10,11 @@ public interface ProductDAO {
 
     List<ProductDTO> selectAllProductList();
 
+    int insertProduct(ProductDTO product);
 
+    int updateProduct(ProductDTO product);
 
+    int deleteProduct(int productCode);
+
+    List<ProductDTO> selectProductByCondition(SearchCondition searchCondition);
 }
