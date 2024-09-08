@@ -58,12 +58,17 @@
             WHERE product_name LIKE CONCAT('%', #{ value }, '%')
         </if>
         <if test="option == 'salesStore'">
-            <if test="value == '백화점'">
-                WHERE discount_rate = '0'
-            </if>
-            <if test="value == '아울렛'">
-                WHERE discount_rate != '0'
-            </if>
+            <choose>
+                <when test="value == '백화점'">
+                    WHERE discount_rate = '0'
+                </when>
+                <when test="value == '아울렛'">
+                    WHERE discount_rate != '0'
+                </when>
+                <otherwise>
+                    WHERE discount_rate IS NULL
+                </otherwise>
+            </choose>
         </if>
         <if test="option == 'newProduct'">
             WHERE release_date LIKE CONCAT(DATE_FORMAT(NOW(), '%Y%m'), '%')
@@ -71,9 +76,7 @@
         <if test="option == 'nonProduction'">
             WHERE production_status = 'N'
         </if>
-
          ORDER BY PRODUCT_CODE
-
     </select>
 
     <!-- 5. 제품 정보를 등록하는 쿼리를 작성하세요.
@@ -127,7 +130,6 @@
         DELETE
           FROM product_info
          WHERE product_code = #{ productCode }
-
     </delete>
 
 </mapper>

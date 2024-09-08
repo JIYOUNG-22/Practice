@@ -14,13 +14,15 @@ import static com.dyong.common.Template.getSqlSession;
 public class ProductService {
 
     // 1. 자주 사용할 DAO 객체를 선언하세요.
+    private ProductDAO productDAO;
+
 
     /* 2. 전체 제품 목록을 조회하는 로직을 작성하세요. */
     public List<ProductDTO> selectAllProductList() {
 
         SqlSession sqlSession = getSqlSession();
 
-        ProductDAO productDAO = sqlSession.getMapper(ProductDAO.class);
+        productDAO = sqlSession.getMapper(ProductDAO.class);
         List<ProductDTO> productList = productDAO.selectAllProductList();
 
         sqlSession.close();
@@ -33,7 +35,7 @@ public class ProductService {
     public List<ProductDTO> selectProductByCondition(SearchCondition searchCondition) {
 
         SqlSession sqlSession = getSqlSession();
-        ProductDAO productDAO = sqlSession.getMapper(ProductDAO.class);
+        productDAO = sqlSession.getMapper(ProductDAO.class);
 
         List<ProductDTO> productList = productDAO.selectProductByCondition(searchCondition);
 
@@ -47,7 +49,7 @@ public class ProductService {
     public boolean registNewProduct(ProductDTO product) {
 
         SqlSession sqlSession = getSqlSession();
-        ProductDAO productDAO = sqlSession.getMapper(ProductDAO.class);
+        productDAO = sqlSession.getMapper(ProductDAO.class);
 
         int result = productDAO.insertProduct(product);
 
@@ -67,7 +69,7 @@ public class ProductService {
     public boolean modifyProductInfo(ProductDTO product) {
 
         SqlSession sqlSession = getSqlSession();
-        ProductDAO productDAO = sqlSession.getMapper(ProductDAO.class);
+        productDAO = sqlSession.getMapper(ProductDAO.class);
 
         int result = productDAO.updateProduct(product);
 
@@ -89,7 +91,7 @@ public class ProductService {
         int productCode = Integer.parseInt(parameter.get("productCode"));
 
         SqlSession sqlSession = getSqlSession();
-        ProductDAO productDAO = sqlSession.getMapper(ProductDAO.class);
+        productDAO = sqlSession.getMapper(ProductDAO.class);
 
         int result = productDAO.deleteProduct(productCode);
 
